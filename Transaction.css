@@ -1,0 +1,28 @@
+.field-label {
+	float: left;
+	font-weight: bold;
+	width:100px;
+	text-align: right;
+	margin-right: 4px
+;}
+
+.field-value {
+	float: left;
+}
+
+
+.field-container {
+	clear: both;
+}
+
+.view-transaction-ouputs {
+	float: left;
+	width: 45%;
+	overflow:hidden;
+}
+
+.view-transaction-inputs {
+	float: left;
+	width: 45%;
+	overflow:hidden;
+}

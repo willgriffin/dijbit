@@ -1,0 +1,9 @@
+.transaction-output-view > .value {
+	font-size: .9em;
+
+}
+
+.transaction-output-view > .addresses {
+	float: left;
+	font-size: .9em;
+}

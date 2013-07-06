@@ -1,0 +1,79 @@
+<div class="${baseClass}-view" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, liveSplitters:false">
+
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:false">
+
+		<div class="field-container" data-dojo-attach-point="txidContainer">
+			<div class="field-label" data-dojo-attach-point="txidLabel">txid</div>
+			<div class="field-value" data-dojo-attach-point="txid"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="accountContainer">
+			<div class="field-label" data-dojo-attach-point="accountLabel">account</div>
+			<div class="field-value" data-dojo-attach-point="account"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="addressContainer">
+			<div class="field-label" data-dojo-attach-point="addressLabel">address</div>
+			<div class="field-value" data-dojo-attach-point="address"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="categoryContainer">
+			<div class="field-label" data-dojo-attach-point="categoryLabel">category</div>
+			<div class="field-value" data-dojo-attach-point="category"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="amountContainer">
+			<div class="field-label" data-dojo-attach-point="amountLabel">amount</div>
+			<div class="field-value" data-dojo-attach-point="amount"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="confirmationsContainer">
+			<div class="field-label" data-dojo-attach-point="confirmationsLabel">confirmations</div>
+			<div class="field-value" data-dojo-attach-point="confirmations"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="blockhashContainer">
+			<div class="field-label" data-dojo-attach-point="blockhashLabel">blockhash</div>
+			<div class="field-value" data-dojo-attach-point="blockhash"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="blockindexContainer">
+			<div class="field-label" data-dojo-attach-point="blockindexLabel">blockindex</div>
+			<div class="field-value" data-dojo-attach-point="blockindex"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="blocktimeContainer">
+			<div class="field-label" data-dojo-attach-point="blocktimeLabel">blocktime</div>
+			<div class="field-value" data-dojo-attach-point="blocktime"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="timeContainer">
+			<div class="field-label" data-dojo-attach-point="timeLabel">time</div>
+			<div class="field-value" data-dojo-attach-point="time"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="timereceivedContainer">
+			<div class="field-label" data-dojo-attach-point="timereceivedLabel">timereceived</div>
+			<div class="field-value" data-dojo-attach-point="timereceived"></div>
+		</div>
+
+		<div class="field-container" data-dojo-attach-point="inwalletContainer">
+			<div class="field-label" data-dojo-attach-point="inwalletLabel">inwallet</div>
+			<div class="field-value" data-dojo-attach-point="inwallet"></div>
+		</div>
+
+	</div>
+
+	<br style="clear: both">
+
+	<div class="view-${baseClass}-inputs" data-dojo-attach-point="inputsContainer" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left', splitter:false">
+		<h4>Inputs</h4>
+		<div data-dojo-attach-point="inputs"></div>
+	</div>
+
+	<div class="view-${baseClass}-ouputs" data-dojo-attach-point="outputsContainer" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:false">
+		<h4>Outputs</h4>
+		<div data-dojo-attach-point="outputs"></div>
+	</div>
+
+</div>

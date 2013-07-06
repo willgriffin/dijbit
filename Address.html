@@ -1,0 +1,15 @@
+<div class="${baseClass}-view" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, liveSplitters:false">
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:false">
+		<div data-dojo-attach-point='addressContainer'>
+			<div data-dojo-attach-point='addressLabel'></div>
+			<div data-dojo-attach-point='addressNode'></div>
+		</div>
+		<div data-dojo-attach-point='infoContainer'></div>
+	</div>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left', splitter:false" data-dojo-attach-point='sentListContainer'>
+		<div data-dojo-attach-point='sentList'></div>
+	</div>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:false" data-dojo-attach-point='receivedListContainer'>
+		<div data-dojo-attach-point='receivedList'></div>
+	</div>
+</div>
