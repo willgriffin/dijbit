@@ -20,12 +20,12 @@ define([
   "dgrid/Keyboard",
   "dgrid/extensions/DijitRegistry",
 
-  "randojo/bitcoin/ControllerSkeleton",
+  "dijbit/ControllerSkeleton",
 
-  "dojo/text!randojo/bitcoin/Address.html"
+  "dojo/text!dijbit/Address.html"
 
 ], function( declare, domStyle, parser, ready, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Memory, Observable, ContentPane, BorderContainer, DGrid, DGridSelection, DGridKeyboard, DGridRegistry, ControllerSkeleton, template) {
-  var address = declare("randojo/bitcoin/Address", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+  var address = declare("dijbit/Address", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
     name: "Address",
     baseClass: "address",
     address: "",

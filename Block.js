@@ -7,11 +7,11 @@ define([
   "dijit/_WidgetBase",  // dijit
   "dijit/_TemplatedMixin",
 
-  "randojo/bitcoin/Transaction", // randojo
+  "dijbit/Transaction", // randojo
 
-  "dojo/text!randojo/bitcoin/Block.html",
+  "dojo/text!dijbit/Block.html",
 ], function( declare, domStyle, parser, ready, _WidgetBase, _TemplatedMixin, TX, blockTemplate) {
-  var def = declare("randojo/bitcoin/Block", [_WidgetBase, _TemplatedMixin], {
+  var def = declare("dijbit/Block", [_WidgetBase, _TemplatedMixin], {
 
     constructor: function()
     {

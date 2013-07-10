@@ -11,15 +11,15 @@ define([
   "dijit/layout/ContentPane",
   "dijit/layout/BorderContainer",
 
-  "randojo/bitcoin/ControllerSkeleton",
+  "dijbit/ControllerSkeleton",
 
-  "randojo/bitcoin/TransactionOutput", // randojo
-  "randojo/bitcoin/TransactionInput",
+  "dijbit/TransactionOutput", // randojo
+  "dijbit/TransactionInput",
 
-  "dojo/text!randojo/bitcoin/Transaction.html"
+  "dojo/text!dijbit/Transaction.html"
 
 ], function( declare, domStyle, parser, ready, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, ContentPane, BorderContainer, ControllerSkeleton, TransactionOutput, TransactionInput, template) {
-  var transaction = declare("randojo/bitcoin/Transaction", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+  var transaction = declare("dijbit/Transaction", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
     name: "Transaction",
     baseClass: "transaction",
     templateString: template,

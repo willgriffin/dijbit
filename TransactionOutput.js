@@ -5,10 +5,12 @@ define([
 	"dojo/ready",
 	"dijit/_WidgetBase",    // dijit
 	"dijit/_TemplatedMixin",
-	"randojo/bitcoin/ControllerSkeleton",
-	"dojo/text!randojo/bitcoin/TransactionOutput.html",
+
+	"dijbit/ControllerSkeleton",
+
+	"dojo/text!dijbit/TransactionOutput.html",
 ], function( declare, domStyle, parser, ready, _WidgetBase, _TemplatedMixin, ControllerSkeleton, template ) {
-	var vOut = declare("randojo/bitcoin/TransactionOutput", [_WidgetBase, _TemplatedMixin], {
+	var vOut = declare("dijbit/TransactionOutput", [_WidgetBase, _TemplatedMixin], {
 		name: "Transaction vOut",
 		baseClass: "transaction-output",
 		templateString: template,

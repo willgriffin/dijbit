@@ -7,11 +7,11 @@ define([
 	"dijit/_TemplatedMixin",
 	"dijit/_WidgetsInTemplateMixin",
 
-	"randojo/bitcoin/TransactionOutput",
-	"randojo/bitcoin/ControllerSkeleton",
-	"dojo/text!randojo/bitcoin/TransactionInput.html",
+	"dijbit/TransactionOutput",
+	"dijbit/ControllerSkeleton",
+	"dojo/text!dijbit/TransactionInput.html",
 ], function( declare, domStyle, parser, ready, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, TransactionOutput, ControllerSkeleton, template ) {
-	var VIn = declare("randojo/bitcoin/TransactionInput", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
+	var VIn = declare("dijbit/TransactionInput", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		name: "Transaction vIn",
 		baseClass: "transaction-vin",
 		templateString: template,
