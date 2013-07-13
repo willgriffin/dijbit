@@ -1,15 +1,17 @@
-<div class="${baseClass}-view" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, liveSplitters:false">
+<div class="${baseClass}-view" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, liveSplitters:false" data-dojo-attach-point="containerNode">
 	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top', splitter:false">
 		<div data-dojo-attach-point='addressContainer'>
 			<div data-dojo-attach-point='addressLabel'></div>
 			<div data-dojo-attach-point='addressNode'></div>
 		</div>
 		<div data-dojo-attach-point='infoContainer'></div>
-	</div>
-	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left', splitter:false" data-dojo-attach-point='sentListContainer'>
-		<div data-dojo-attach-point='sentList'></div>
-	</div>
-	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:false" data-dojo-attach-point='receivedListContainer'>
-		<div data-dojo-attach-point='receivedList'></div>
+		<div data-dojo-type="dijit/layout/TabContainer" data-dojo-attach-point='ledgerTabs'>
+			<div title="Received"  data-dojo-type="dijit/layout/ContentPane" data-dojo-attach-point='receivedListContainer'  data-dojo-props="selected:true">
+				<div data-dojo-attach-point='receivedList'></div>
+			</div>
+			<div title="Sent" data-dojo-type="dijit/layout/ContentPane" data-dojo-attach-point='sentListContainer'>
+				<div data-dojo-attach-point='sentList'></div>
+			</div>
+		</div>
 	</div>
 </div>

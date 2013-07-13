@@ -29,8 +29,6 @@ define([
     postCreate: function()
     {
       console.group("postCreate");
-      //this.load(this.data);
-      //var domNode = this.domNode;
 
       if (this.data.txid != undefined)
         this.loadTXID(this.data.txid);
@@ -39,9 +37,6 @@ define([
       //this.setCss(css);
       this.inherited(arguments);
       console.groupEnd();
-
-      //domStyle(this.txidNode, "innerHTML", this.data.txid);
-      //this.txidNode.set('html',this.data.txid);
     },
     loadTXID: function(txid)
     {
@@ -65,13 +60,9 @@ define([
     loadDecoded: function ( decoded )
     {
       console.group("loadDecoded");
-      console.log( decoded );
 
       this.controller.gettransaction( decoded.txid ).then(
         dojo.hitch(this, function ( txdata ) {
-
-          console.log( decoded );
-          console.log( txdata );
           decoded.amount = txdata.amount;
           decoded.fee = txdata.fee;
           decoded.confirmations = txdata.confirmations;
@@ -192,15 +183,8 @@ define([
           console.group("Found vOuts");
           data.vout.forEach(dojo.hitch(this, function(vOut){
             console.log("adding vOut");
-            //console.log(vOut);
-            var newVOut = new TransactionOutput({ data: vOut, controller: this.controller }, dojo.create('div', { baseClass: 'transaction-vout' }, this.outputs)); //can i put a baseClass there too ?
-            //console.log(newVOut);
-            //dom.place(newVOut,this.voutsListContainer);
-            //this.voutsListContainer.addChild(newVOut);
+            var newVOut = new TransactionOutput({ data: vOut, controller: this.controller }, dojo.create('div', { baseClass: 'transaction-vout' }, this.outputs));
             console.log("adding to voutsListContainer");
-              //console.log(vOut);
-                //new TransactionOutput({ data: vOut }, dojo.create('div',{baseClass: 'transaction-vout'}))
-            //);
           }));
           console.groupEnd();
         }
@@ -211,25 +195,13 @@ define([
           data.vin.forEach(dojo.hitch(this, function(vIn) {
             var newVIn = new TransactionInput({ data: vIn, controller: this.controller }, dojo.create('div', { baseClass: 'transaction-vin' }, this.inputs));
           }));
-
           console.groupEnd();
         }
-
-
-
         console.groupEnd();
       } else {
         console.log("data is undefined");
       }
     },
   });
-
   return transaction;
-
-  /*ready (function()
-  {
-    parser.parse();
-
-  });
-*/
 });

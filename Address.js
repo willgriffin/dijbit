@@ -1,11 +1,13 @@
 define([
 
-  "dojo/_base/declare",   // dojo
+  "dojo/_base/declare",
   "dojo/dom-style",
   "dojo/parser",
   "dojo/ready",
 
-  "dijit/_WidgetBase",  // dijit
+  "put-selector/put",
+
+  "dijit/_WidgetBase",
   "dijit/_TemplatedMixin",
   "dijit/_WidgetsInTemplateMixin",
 
@@ -14,6 +16,7 @@ define([
 
   "dijit/layout/ContentPane",
   "dijit/layout/BorderContainer",
+  "dijit/layout/TabContainer",
 
   "dgrid/OnDemandGrid",
   "dgrid/Selection",
@@ -24,7 +27,10 @@ define([
 
   "dojo/text!dijbit/Address.html"
 
-], function( declare, domStyle, parser, ready, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Memory, Observable, ContentPane, BorderContainer, DGrid, DGridSelection, DGridKeyboard, DGridRegistry, ControllerSkeleton, template) {
+], function( declare, domStyle, parser, ready, put, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, Memory, Observable, ContentPane, BorderContainer, TabContainer, DGrid, DGridSelection, DGridKeyboard, DGridRegistry, ControllerSkeleton, template) {
+
+  var CustomGrid = declare([DGrid, DGridRegistry]);
+
   var address = declare("dijbit/Address", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
     name: "Address",
     baseClass: "address",
@@ -32,10 +38,14 @@ define([
     templateString: template,
     controller: new ControllerSkeleton,
     receivedStore: {},
+    receivedList: {},
+    receivedWatcher: {},
     sentStore: {},
     data: {},
     postCreate: function()
     {
+
+      this.inherited(arguments);
       console.log("address postCreate");
       this.receivedStore = Observable(new Memory({ idProperty: 'vout_id' }));
       this.sentStore = Observable(new Memory({ idProperty: 'vout_id' }));
@@ -43,7 +53,16 @@ define([
       if (this.data.address != undefined)
         this.loadAddress(this.data.address);
 
-      this.inherited(arguments);
+      this.drawReceived();
+      this.drawSent();
+
+      this.ledgerTabs.startup();
+
+      this.ledgerTabs.watch("selectedChildWidget", function (name, oldVal, newVal) {
+        //todo: ..
+      });
+
+
       console.log('created');
     },
     loadAddress: function( address )
@@ -56,49 +75,44 @@ define([
     loadReceived: function( address )
     {
       console.group("Loading received "+address);
-      //this.controller.getrawtransaction( txid ).then( dojo.hitch(this, this.loadRaw );
       this.controller.getAddressReceived( address ).then(
-        dojo.hitch(this, function ( data ) {
-          data.items.forEach(dojo.hitch(this, function(item) {
-            console.log("adding received");
-            this.receivedStore.put(item, {overwrite: true});
-          }));
+        dojo.hitch(this, function ( items ) {
+          if (items != undefined && items.length > 0)
+          {
+            items.forEach(dojo.hitch(this, function(item) {
+              console.log("adding item to receivedstore");
+              console.log(item);
+              this.receivedStore.notify(item);
+            }));
+          }
         }));
       console.groupEnd();
     },
     loadSent: function ( address )
     {
-      console.log("Loading sent");
+      console.group("Loading sent");
       this.controller.getAddressSent( address ).then(
         dojo.hitch(this, function ( items ) {
-          console.log("received");
-          console.log(items);
-          items.forEach(dojo.hitch(this, function(item) {
-            console.log("adding sent");
-            console.log( item );
-            this.sentStore.put(item, {overwrite: true});
-          }));
+          if (items != undefined && items.length > 0)
+          {
+            //console.log ("found, filling");
+            items.forEach(dojo.hitch(this, function(item) {
+              console.log("adding item to sentstore");
+              console.log(item);
+              this.sentStore.notify(item);
+              //this.sentStore.put(item, {overwrite: true});
+            }));
+          }
         }));
       console.groupEnd();
     },
     drawSent: function () {
+      console.group("draw sent");
 
-    },
-    drawReceived: function() {
-      console.group("draw received");
-      this.renderers = {
-        table: function(obj, options) {
-          var div = put("div.collapsed", DGrid.prototype.renderRow.apply(this, arguments));
-          //expando = put(div, "div.expando", obj.txid);
-          return div;
-        }
-      }
-
-      var CustomGrid = declare([DGrid, DGridRegistry]);
-      this.receivedGrid = new CustomGrid({
+      this.sentGrid = new CustomGrid({
         columns: [{
           label: "Time",
-          field: "time",
+          field: "txtime",
           sortable: true,
           formatter: function(val) {
             return val;
@@ -132,26 +146,63 @@ define([
           attribute: 'time',
           descending: true
         }],
-        store: this.receievedStore,
-        renderRow: this.renderers.table,
-      }, dojo.create('div',{}, this.addressContainer));
-      console.log("grid created");
+        store: this.sentStore,
+        renderRow: function(obj, options) {
+          var div = put("div.collapsed", DGrid.prototype.renderRow.apply(this, arguments));
+          //expando = put(div, "div.expando", obj.txid);
+          return div;
+        },
+      }, this.sentList);
+      console.groupEnd();
+    },
+    drawReceived: function() {
+      console.group("draw received");
 
-      //this.grid.on(".dgrid-cell:click", dojo.hitch(this, function(evt){
-          //var cell = this.grid.cell(evt);
-          //if (cell.column.field == 'txid')
-          //{
-            //window.open("http://blockexplorer.com/testnet/tx/"+cell.element.innerHTML, "_blank");
-          //}
-          //console.log(cell.element.innerHTML);
-          // cell.element == the element with the dgrid-cell class
-          // cell.column == the column definition object for the column the cell is within
-          // cell.row == the same object obtained from grid.row(evt)
-      //}));
-
-      this.renderers.table = this.receivedGrid.renderRow;
+      this.receivedGrid = new CustomGrid({
+        columns: [{
+          label: "Time",
+          field: "txtime",
+          sortable: true,
+          formatter: function(val) {
+            return val;
+          }
+        },
+        {
+          label: "Address",
+          field: "address",
+          sortable: true,
+          formatter: function(val) {
+            return val;
+          }
+        },
+        {
+          label: "Confirms",
+          field: "confirmations",
+          sortable: true,
+          formatter: function(val) {
+            return val;
+          }
+        },
+        {
+          label: "Amount",
+          field: "value",
+          sortable: true,
+          formatter: function(val) {
+            return val;
+          }
+        }],
+        sort: [{
+          attribute: 'time',
+          descending: true
+        }],
+        store: this.receivedStore,
+        renderRow: function(obj, options) {
+          var div = put("div.collapsed", DGrid.prototype.renderRow.apply(this, arguments));
+          //expando = put(div, "div.expando", obj.txid);
+          return div;
+        },
+      }, this.receivedList);
       this.receivedGrid.startup();
-      console.log("received grid drawn");
       console.groupEnd();
     }
   });

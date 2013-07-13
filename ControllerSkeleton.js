@@ -13,7 +13,7 @@ define([
 
 
   //todo: replace as many with js (bitcoinjs?) as possible
-  var controllerSkeleton = declare("randojo/bitcoin/ControllerSkeleton", [_WidgetBase], {
+  var controllerSkeleton = declare("dijbit/ControllerSkeleton", [_WidgetBase], {
     addmultisigaddress: function()
 		{
 			undefinedErrorMessage();
