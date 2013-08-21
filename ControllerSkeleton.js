@@ -244,9 +244,14 @@ define([
 		},
     validateaddress: function()
 		{
+			console.log('from skeleton');
 			undefinedErrorMessage();
 		},
     verifymessage: function()
+    {
+      undefinedErrorMessage();
+    },
+    getAddressReceived: function()
     {
       undefinedErrorMessage();
     },

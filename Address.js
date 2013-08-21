@@ -36,21 +36,26 @@ define([
     baseClass: "address",
     address: "",
     templateString: template,
-    controller: new ControllerSkeleton,
     receivedStore: {},
-    receivedList: {},
-    receivedWatcher: {},
-    sentStore: {},
-    data: {},
+    sentStore: {}, 
     postCreate: function()
     {
 
       this.inherited(arguments);
+
+      this.loadAddress( this.address );
+
+      console.log('created');
+    },
+    loadAddress: function( address )
+    {
       console.log("address postCreate");
       this.receivedStore = Observable(new Memory({ idProperty: 'vout_id' }));
       this.sentStore = Observable(new Memory({ idProperty: 'vout_id' }));
 
-      if (this.data.address != undefined)
+      console.log("store created");
+
+      if (this.data  && this.data.address !== undefined)
         this.loadAddress(this.data.address);
 
       this.drawReceived();
@@ -63,10 +68,6 @@ define([
       });
 
 
-      console.log('created');
-    },
-    loadAddress: function( address )
-    {
       this.addressLabel.innerHTML = 'Address:';
       this.addressNode.innerHTML = address;
       this.loadReceived( address );
@@ -74,9 +75,12 @@ define([
     },
     loadReceived: function( address )
     {
-      console.group("Loading received "+address);
-      this.controller.getAddressReceived( address ).then(
+      console.group("[dijbit] Loading received "+address);
+      console.log(this.controller);
+      // /this.controller.getAddressReceived();
+      /*this.controller.getAddressReceived( address ).then(
         dojo.hitch(this, function ( items ) {
+          console.log(items);
           if (items != undefined && items.length > 0)
           {
             items.forEach(dojo.hitch(this, function(item) {
@@ -85,7 +89,7 @@ define([
               this.receivedStore.notify(item);
             }));
           }
-        }));
+        }));*/
       console.groupEnd();
     },
     loadSent: function ( address )
